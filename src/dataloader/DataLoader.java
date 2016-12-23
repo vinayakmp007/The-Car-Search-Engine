@@ -15,10 +15,8 @@ import org.xml.sax.SAXException;
      * @author vinayak
      */
     public class DataLoader {
-        static String locatn;
-        public DataLoader(){
-         locatn="/home/vinayak/mini project data";
-    }/**
+        static String locatn="/home/vinayak/mini project data";  //your location here
+      /**
          * @param args the command line arguments
          */
 
@@ -30,7 +28,7 @@ import org.xml.sax.SAXException;
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
-            locatn="/home/vinayak/mini project data";
+              //
             final File folder = new File(locatn);
             insertData(folder);
         }
