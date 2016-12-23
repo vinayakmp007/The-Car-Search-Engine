@@ -14,20 +14,22 @@ import java.sql.SQLException;
  */
 public class jdbcconn {
 Connection conn;
-String usern,passwd,sid;
+String usern,passwd,sid,port;
 public jdbcconn(){
 
 conn=null;
-usern="";
-passwd="";
-sid="";
+usern="";      //your  username
+passwd="";     //password
+sid="";         //sid
+port="";
 }
-public jdbcconn(String userns,String passwds,String sids){
+public jdbcconn(String userns,String passwds,String sids,String por){
 
 conn=null;
 usern=userns;
 passwd=passwds;
 sid=sids;
+port=por;
 }
     public void connectdb()
     {
@@ -42,7 +44,7 @@ sid=sids;
         }
         
         try{
-        conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:"+sid,usern,passwd);
+        conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:"+port+":"+sid,usern,passwd);
         }
         catch(SQLException e){
         System.out.println(""+e);
