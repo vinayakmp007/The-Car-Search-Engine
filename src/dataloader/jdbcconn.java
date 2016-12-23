@@ -13,14 +13,21 @@ import java.sql.SQLException;
  * @author vinayak
  */
 public class jdbcconn {
-    static Connection conn;
-static String usern,passwd,sid;
+Connection conn;
+String usern,passwd,sid;
 public jdbcconn(){
 
 conn=null;
-usern="vinayak";
-passwd="vinpassword";
-sid="xe";
+usern="";
+passwd="";
+sid="";
+}
+public jdbcconn(String userns,String passwds,String sids){
+
+conn=null;
+usern=userns;
+passwd=passwds;
+sid=sids;
 }
     public void connectdb()
     {
