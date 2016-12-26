@@ -46,7 +46,8 @@ import org.xml.sax.SAXException;
                 {
                 System.out.println(filname);     
                 data a =new data();
-                a.getdata(locatn+"/"+filname);
+                a.getdata(locatn+"/"+filname);    // for unix filesystem
+              //  a.getdata(locatn+"\\"+filname); //for windows filesystem
                 count++;
                 
                 

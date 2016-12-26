@@ -19,6 +19,8 @@ import org.xml.sax.SAXException;
  * @author vinayak
  */
 public class data {
+    
+    //Later Dictionary could be used to store this data
    String model_name,man_name,designer,head,image,fuel_system,bmep,engine_coolant,engine_man,engine_type;
    String engine_pos,engine_layout,drive_wheels,steering,gearbox,tyres_front,tyres_rear,mileages,cyclinders;
    boolean img;
@@ -71,7 +73,7 @@ public class data {
                          try {
                         nod=Integer.parseInt(datchild.getTextContent().substring(0,2));
                         }
-                        catch(StringIndexOutOfBoundsException e){
+                        catch(StringIndexOutOfBoundsException |NumberFormatException e){
                         
                         nod=-1;
                         }break;
@@ -129,7 +131,7 @@ public class data {
                         }
                                           
                         break;
-                        case "Kerb weight":
+                    case "Kerb weight":
                         try{
                         weight_in_kg=Float.parseFloat(datchild.getTextContent());
                         }
@@ -185,6 +187,130 @@ public class data {
                             mileage=-1;
                         }
                         break;
+                        case "Fuel system":
+                        try {
+                        fuel_system=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        fuel_system="";
+                        }
+                        break;
+                        
+                        case "bmep (brake mean effective pressure)":
+                        try {
+                        bmep=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        bmep="";
+                        }
+                        break;
+                        case "Engine coolant":
+                        try {
+                        engine_coolant=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        engine_coolant="";
+                        }
+                        break;
+                        case "Engine manufacturer":
+                        try {
+                        engine_man=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        engine_man="";
+                        }
+                        break;
+                        case "engine type":
+                        try {
+                        engine_type=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        engine_type="";
+                        }
+                        break;
+                        case "Engine layout":
+                        try {
+                        engine_layout=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        engine_layout="";
+                        }
+                        break;
+                        case "Engine position":
+                        try {
+                        engine_pos=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        engine_pos="";
+                        }
+                        break;
+                        case "Drive wheels":
+                        try {
+                        drive_wheels=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        drive_wheels="";
+                        }
+                        break;
+                        case "Steering":
+                        try {
+                        steering=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        steering="";
+                        }
+                        break;
+                        case "Gearbox":
+                        try {
+                        gearbox=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        gearbox="";
+                        }
+                        break;
+                        case "Tyres front":
+                        try {
+                        tyres_front=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        tyres_front="";
+                        }
+                        break;
+                         case "Tyres rear":
+                        try {
+                        tyres_rear=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        tyres_rear="";
+                        }
+                        break;
+                        case "Cylinders":
+                        try {
+                        cyclinders=datchild.getTextContent();
+                        }
+                        catch(StringIndexOutOfBoundsException e){
+                        
+                        cyclinders="";
+                        }
+                        break;
+                        
+                        
+                        
+                        
+                        
+                        
                     default:
                         break;
                 }
