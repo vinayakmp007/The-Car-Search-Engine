@@ -27,6 +27,12 @@ public class data {
     int year,nod;
     float wheelbase_in_mm,lenght_in_mm,width_in_mm,height_in_mm,ground_clr_in_mm,fuel_tank_cap_in_ltr,weight_in_kg,max_speed;
     float front_brake_dia,rear_brake_dia,mileage;
+    public String makeInsertString(String table){
+    String str="INSERT INTO "+table+"(BMEP,CYCLINDERS,DESIGNER,DRIVE_WHEELS,ENGINE_COOLANT,ENGINE_LAYOUT,ENGINE_MAN,ENGINE_POS,ENGINE_TYPR,FRONT_BRAKE_DIA,FUEL_SYSTEM,FUEL_TANK_CAP,GEAR_BOX,GROUND_CLR_IN_MM,HEAD,HEIGHT_IN_MM,IMAGE_ID,IMAGE_Y_N,LENGHT_IN_MM,MAN_NAME,MAX_SPEED,MILEAGE,MILEAGES,MODEL_NAME,NOD,REAR_BRAKE_DIA,STEERING.TYRES_FRONT,TYRES_REAR,WEIGHT_IN_KG,WHEELBASE_IN_MM,WIDTH_IN_MM,YEAR)"
+            + "VALUES(\'"+bmep+"/',";
+    
+    return str;
+    }
     public void getdata(String fil) throws ParserConfigurationException, SAXException, IOException
     {
         img=false;

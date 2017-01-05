@@ -31,7 +31,7 @@ passwd=passwds;
 sid=sids;
 port=por;
 }
-    public void connectdb()
+    public boolean connectdb()
     {
         try{
         Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -40,7 +40,7 @@ port=por;
         catch(ClassNotFoundException e)
         {
         System.out.println("No class found"+e);
-                    
+          return false;          
         }
         
         try{
@@ -48,8 +48,9 @@ port=por;
         }
         catch(SQLException e){
         System.out.println(""+e);
+        return false;
         }
-    
+    return true;
     }
     
 }
