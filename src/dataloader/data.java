@@ -28,8 +28,10 @@ public class data {
     float wheelbase_in_mm,lenght_in_mm,width_in_mm,height_in_mm,ground_clr_in_mm,fuel_tank_cap_in_ltr,weight_in_kg,max_speed;
     float front_brake_dia,rear_brake_dia,mileage;
     public String makeInsertString(String table){
-    String str="INSERT INTO "+table+"(BMEP,CYCLINDERS,DESIGNER,DRIVE_WHEELS,ENGINE_COOLANT,ENGINE_LAYOUT,ENGINE_MAN,ENGINE_POS,ENGINE_TYPR,FRONT_BRAKE_DIA,FUEL_SYSTEM,FUEL_TANK_CAP,GEAR_BOX,GROUND_CLR_IN_MM,HEAD,HEIGHT_IN_MM,IMAGE_ID,IMAGE_Y_N,LENGHT_IN_MM,MAN_NAME,MAX_SPEED,MILEAGE,MILEAGES,MODEL_NAME,NOD,REAR_BRAKE_DIA,STEERING.TYRES_FRONT,TYRES_REAR,WEIGHT_IN_KG,WHEELBASE_IN_MM,WIDTH_IN_MM,YEAR)"
-            + "VALUES(\'"+bmep+"/',";
+        int image_id=0;
+
+    String str;
+       str = "INSERT INTO "+table+"(BMEP,CYCLINDERS,DESIGNER,DRIVE_WHEELS,ENGINE_COOLANT,ENGINE_LAYOUT,ENGINE_MAN,ENGINE_POS,ENGINE_TYPR,FRONT_BRAKE_DIA,FUEL_SYSTEM,FUEL_TANK_CAP,GEAR_BOX,GROUND_CLR_IN_MM,HEAD,HEIGHT_IN_MM,IMAGE_ID,IMAGE_Y_N,LENGHT_IN_MM,MAN_NAME,MAX_SPEED,MILEAGE,MILEAGES,MODEL_NAME,NOD,REAR_BRAKE_DIA,STEERING.TYRES_FRONT,TYRES_REAR,WEIGHT_IN_KG,WHEELBASE_IN_MM,WIDTH_IN_MM,YEAR)"  + "VALUES('"+bmep+"','"+cyclinders+"','"+designer+"','"+drive_wheels+"','"+engine_coolant+"','"+engine_layout+"','"+engine_man+"','"+engine_pos+"','"+engine_type+"',"+front_brake_dia+",'"+fuel_system+"',"+fuel_tank_cap_in_ltr+",'"+gearbox+"',"+ground_clr_in_mm+",'"+head+"',"+height_in_mm+","+image_id+",'"+String.valueOf(img)+"',"+lenght_in_mm+",'"+man_name+"',"+max_speed+","+mileage+",'"+mileages+"','"+model_name+"',"+nod+","+rear_brake_dia+",'"+steering+"','"+tyres_front+"','"+tyres_rear+"',"+weight_in_kg+","+wheelbase_in_mm+","+year;
     
     return str;
     }
@@ -38,7 +40,7 @@ public class data {
         img=false;
         int a =fil.length();
         image=(fil.substring(0,a-4).concat(".jpg"));
-        System.out.println(image);
+        //System.out.println(image);
         File f =new File(fil);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();

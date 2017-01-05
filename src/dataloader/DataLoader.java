@@ -44,9 +44,10 @@ import org.xml.sax.SAXException;
                 
                 if(filname.endsWith(".xml"))
                 {
-                System.out.println(filname);     
+                //System.out.println(filname);     
                 data a =new data();
                 a.getdata(locatn+"/"+filname);    // for unix filesystem
+                System.out.println(a.makeInsertString("CAR_DATA"));
               //  a.getdata(locatn+"\\"+filname); //for windows filesystem
                 count++;
                 
