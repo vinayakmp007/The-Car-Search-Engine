@@ -6,6 +6,7 @@
 package dataloader;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,9 +32,18 @@ public class data {
         int image_id=0;
 
     String str;
-       str = "INSERT INTO "+table+"(BMEP,CYCLINDERS,DESIGNER,DRIVE_WHEELS,ENGINE_COOLANT,ENGINE_LAYOUT,ENGINE_MAN,ENGINE_POS,ENGINE_TYPR,FRONT_BRAKE_DIA,FUEL_SYSTEM,FUEL_TANK_CAP,GEAR_BOX,GROUND_CLR_IN_MM,HEAD,HEIGHT_IN_MM,IMAGE_ID,IMAGE_Y_N,LENGHT_IN_MM,MAN_NAME,MAX_SPEED,MILEAGE,MILEAGES,MODEL_NAME,NOD,REAR_BRAKE_DIA,STEERING.TYRES_FRONT,TYRES_REAR,WEIGHT_IN_KG,WHEELBASE_IN_MM,WIDTH_IN_MM,YEAR)"  + "VALUES('"+bmep+"','"+cyclinders+"','"+designer+"','"+drive_wheels+"','"+engine_coolant+"','"+engine_layout+"','"+engine_man+"','"+engine_pos+"','"+engine_type+"',"+front_brake_dia+",'"+fuel_system+"',"+fuel_tank_cap_in_ltr+",'"+gearbox+"',"+ground_clr_in_mm+",'"+head+"',"+height_in_mm+","+image_id+",'"+String.valueOf(img)+"',"+lenght_in_mm+",'"+man_name+"',"+max_speed+","+mileage+",'"+mileages+"','"+model_name+"',"+nod+","+rear_brake_dia+",'"+steering+"','"+tyres_front+"','"+tyres_rear+"',"+weight_in_kg+","+wheelbase_in_mm+","+year;
-    
+       str = "INSERT INTO "+table+"(BMEP,CYCLINDERS,DESIGNERS,DRIVE_WHEELS,ENGINE_COOLANT,ENGINE_LAYOUT,ENGINE_MAN,ENGINE_POS,ENGINE_TYPE,FRONT_BRAKE_DIA,FUEL_SYSTEM,FUEL_TANK_CAP,GEAR_BOX,GROUND_CLR_IN_MM,HEAD,HEIGHT_IN_MM,IMAGE_ID,IMAGE_Y_N,LENGHT_IN_MM,MAN_NAME,MAX_SPEED,MILEAGE,MILEAGES,MODEL_NAME,NOD,REAR_BRAKE_DIA,STEERING,TYRES_FRONT,TYRES_REAR,WEIGHT_IN_KG,WHEELBASE_IN_MM,WIDTH_IN_MM,YEAR,CAR_ID)"  + "VALUES('"+bmep+"','"+cyclinders+"','"+designer+"','"+drive_wheels+"','"+engine_coolant+"','"+engine_layout+"','"+engine_man+"','"+engine_pos+"','"+engine_type+"',"+front_brake_dia+",'"+fuel_system+"',"+fuel_tank_cap_in_ltr+",'"+gearbox+"',"+ground_clr_in_mm+",'"+head+"',"+height_in_mm+","+image_id+",'"+String.valueOf(img)+"',"+lenght_in_mm+",'"+man_name+"',"+max_speed+","+mileage+",'"+mileages+"','"+model_name+"',"+nod+","+rear_brake_dia+",'"+steering+"','"+tyres_front+"','"+tyres_rear+"',"+weight_in_kg+","+wheelbase_in_mm+","+"'"+width_in_mm+"',"+year+",0)";
+     str =str.replace(",null",",NULL");
+     str =str.replace(",'null'",",NULL");
+     str =str.replace(",-1.0",",NULL");
+      str =str.replace(",-1",",NULL");
+     str =str.replace("&","AND");
     return str;
+    }
+    public void insertIntoDbms(jdbcconn as,String table) throws SQLException, InterruptedException{
+    String a=makeInsertString(table);
+    as.executeUpdate(a);
+    
     }
     public void getdata(String fil) throws ParserConfigurationException, SAXException, IOException
     {
@@ -67,6 +77,7 @@ public class data {
                     case "modelname":
                         model_name=datchild.getTextContent();
                         model_name=model_name.trim();
+                        model_name=model_name.replace("'"," ");
                         break;
                     case "modelyear":
                         try {
@@ -198,6 +209,8 @@ public class data {
                         case "Fuel system":
                         try {
                         fuel_system=datchild.getTextContent();
+                        fuel_system=fuel_system.trim();
+                        fuel_system=fuel_system.replace("'"," ");
                         }
                         catch(StringIndexOutOfBoundsException e){
                         
@@ -208,6 +221,7 @@ public class data {
                         case "bmep (brake mean effective pressure)":
                         try {
                         bmep=datchild.getTextContent();
+                        bmep=bmep.trim();
                         }
                         catch(StringIndexOutOfBoundsException e){
                         
@@ -217,6 +231,7 @@ public class data {
                         case "Engine coolant":
                         try {
                         engine_coolant=datchild.getTextContent();
+                        engine_coolant=engine_coolant.trim();
                         }
                         catch(StringIndexOutOfBoundsException e){
                         
@@ -226,6 +241,7 @@ public class data {
                         case "Engine manufacturer":
                         try {
                         engine_man=datchild.getTextContent();
+                        engine_man=engine_man.trim();
                         }
                         catch(StringIndexOutOfBoundsException e){
                         
@@ -235,6 +251,7 @@ public class data {
                         case "engine type":
                         try {
                         engine_type=datchild.getTextContent();
+                        engine_type=engine_type.trim();
                         }
                         catch(StringIndexOutOfBoundsException e){
                         
@@ -262,6 +279,7 @@ public class data {
                         case "Drive wheels":
                         try {
                         drive_wheels=datchild.getTextContent();
+                        drive_wheels=drive_wheels.trim();
                         }
                         catch(StringIndexOutOfBoundsException e){
                         

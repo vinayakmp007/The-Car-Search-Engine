@@ -8,12 +8,14 @@ package dataloader;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 /**
  *
  * @author vinayak
  */
 public class jdbcconn {
 Connection conn;
+Statement state;
 String usern,passwd,sid,port;
 public jdbcconn(){
 
@@ -31,7 +33,38 @@ passwd=passwds;
 sid=sids;
 port=por;
 }
-    public boolean connectdb()
+public void close() throws SQLException{
+conn.close();
+}
+public void makeStatement() throws  InterruptedException
+{
+    try{
+state =conn.createStatement();
+    }
+    catch(NullPointerException |SQLException e)
+    {
+    
+        Thread.currentThread().sleep(1000);
+       
+    }
+}
+public void executeUpdate(String a) throws SQLException, InterruptedException 
+{
+try{
+    state.executeUpdate(a);
+}
+  catch(NullPointerException |SQLException e)
+    {
+    
+        
+    }
+}
+
+public void executeQuery(String a) throws SQLException
+{
+state.executeQuery(a);
+}
+    public boolean connectToDB()
     {
         try{
         Class.forName("oracle.jdbc.driver.OracleDriver");

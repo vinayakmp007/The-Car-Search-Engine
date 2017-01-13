@@ -7,6 +7,7 @@
 
     import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
    // import org.apache.commons.io.FilenameUtils;
@@ -26,16 +27,20 @@ import org.xml.sax.SAXException;
      * @throws javax.xml.parsers.ParserConfigurationException
      * @throws org.xml.sax.SAXException
      * @throws java.io.IOException
+     * @throws java.sql.SQLException
      */
-    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
+    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, SQLException, InterruptedException {
               //
             final File folder = new File(locatn);
             insertData(folder);
         }
 
 
-        public static void insertData(final File folder) throws ParserConfigurationException, SAXException, IOException {
+        public static void insertData(final File folder) throws ParserConfigurationException, SAXException, IOException, SQLException, InterruptedException {
             int count=0;
+            jdbcconn jdbc=new jdbcconn("vinayak","vinpassword","XE","1521");
+                    jdbc.connectToDB();
+                    jdbc.makeStatement();
         for (final File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
                 //insertData(fileEntry);//recurse through directories
@@ -44,10 +49,15 @@ import org.xml.sax.SAXException;
                 
                 if(filname.endsWith(".xml"))
                 {
-                //System.out.println(filname);     
+                //System.out.println(filname);    
+                    
+                   
                 data a =new data();
                 a.getdata(locatn+"/"+filname);    // for unix filesystem
                 System.out.println(a.makeInsertString("CAR_DATA"));
+                a.insertIntoDbms(jdbc, "CAR_DATA");
+                
+                
               //  a.getdata(locatn+"\\"+filname); //for windows filesystem
                 count++;
                 
