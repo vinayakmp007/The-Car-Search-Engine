@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.ResultSet;
 /**
  *
  * @author vinayak
@@ -44,7 +45,7 @@ state =conn.createStatement();
     catch(NullPointerException |SQLException e)
     {
     
-        Thread.currentThread().sleep(1000);
+        System.out.println("ERRor"+e.toString());
        
     }
 }
@@ -56,13 +57,13 @@ try{
   catch(NullPointerException |SQLException e)
     {
     
-        
+        System.out.println("ERRor"+e.toString());
     }
 }
 
-public void executeQuery(String a) throws SQLException
+public ResultSet executeQuery(String a) throws SQLException
 {
-state.executeQuery(a);
+return state.executeQuery(a);
 }
     public boolean connectToDB()
     {

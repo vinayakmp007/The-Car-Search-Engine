@@ -7,6 +7,7 @@ package dataloader;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -25,11 +26,12 @@ public class data {
    String model_name,man_name,designer,head,image,fuel_system,bmep,engine_coolant,engine_man,engine_type;
    String engine_pos,engine_layout,drive_wheels,steering,gearbox,tyres_front,tyres_rear,mileages,cyclinders;
    boolean img;
+   int image_id;
     int year,nod;
     float wheelbase_in_mm,lenght_in_mm,width_in_mm,height_in_mm,ground_clr_in_mm,fuel_tank_cap_in_ltr,weight_in_kg,max_speed;
     float front_brake_dia,rear_brake_dia,mileage;
     public String makeInsertString(String table){
-        int image_id=0;
+        image_id=0;
 
     String str;
        str = "INSERT INTO "+table+"(BMEP,CYCLINDERS,DESIGNERS,DRIVE_WHEELS,ENGINE_COOLANT,ENGINE_LAYOUT,ENGINE_MAN,ENGINE_POS,ENGINE_TYPE,FRONT_BRAKE_DIA,FUEL_SYSTEM,FUEL_TANK_CAP,GEAR_BOX,GROUND_CLR_IN_MM,HEAD,HEIGHT_IN_MM,IMAGE_ID,IMAGE_Y_N,LENGHT_IN_MM,MAN_NAME,MAX_SPEED,MILEAGE,MILEAGES,MODEL_NAME,NOD,REAR_BRAKE_DIA,STEERING,TYRES_FRONT,TYRES_REAR,WEIGHT_IN_KG,WHEELBASE_IN_MM,WIDTH_IN_MM,YEAR,CAR_ID)"  + "VALUES('"+bmep+"','"+cyclinders+"','"+designer+"','"+drive_wheels+"','"+engine_coolant+"','"+engine_layout+"','"+engine_man+"','"+engine_pos+"','"+engine_type+"',"+front_brake_dia+",'"+fuel_system+"',"+fuel_tank_cap_in_ltr+",'"+gearbox+"',"+ground_clr_in_mm+",'"+head+"',"+height_in_mm+","+image_id+",'"+String.valueOf(img)+"',"+lenght_in_mm+",'"+man_name+"',"+max_speed+","+mileage+",'"+mileages+"','"+model_name+"',"+nod+","+rear_brake_dia+",'"+steering+"','"+tyres_front+"','"+tyres_rear+"',"+weight_in_kg+","+wheelbase_in_mm+","+"'"+width_in_mm+"',"+year+",0)";
@@ -38,7 +40,47 @@ public class data {
      str =str.replace(",-1.0",",NULL");
       str =str.replace(",-1",",NULL");
      str =str.replace("&","AND");
+     str =str.replace("\"\"","NULL");
     return str;
+    }
+    public void getFromResultSet(ResultSet rs){
+    try{
+        
+        bmep=rs.getString("BMEP");
+        cyclinders=rs.getString("CYCLINDERS");
+        designer=rs.getString("DESIGNER");
+        drive_wheels=rs.getString("DRIVE_WHEELS");
+        engine_coolant=rs.getString("ENGINE_COOLANT");
+        engine_layout=rs.getString("ENGINE_LAYOUT");
+        engine_man=rs.getString("ENGINE_MAN");
+        engine_pos=rs.getString("ENGINE_POS");
+        engine_type=rs.getString("ENGINE_TYPE");
+        front_brake_dia=rs.getFloat("FRONT_BRAKE_DIA");
+        fuel_system=rs.getString("FUEL_SYSTEM");
+        fuel_tank_cap_in_ltr=rs.getFloat("FUEL_TANL_CAP");
+        gearbox=rs.getString("GEARBOX");
+        ground_clr_in_mm=rs.getFloat("GROUND_CLR_IN_MM");
+        head=rs.getString("HEAD");
+        height_in_mm=rs.getFloat("HEIGHT_IN_MM");
+        image_id=rs.getInt("IMAGE_ID");
+        img=rs.getBoolean("IMAGE_Y_N");
+        lenght_in_mm=rs.getFloat("LENGHT_IN_MM");
+        man_name=rs.getString("MAN_NAME");
+        max_speed=rs.getFloat("MAX_SPEED");
+        mileage=rs.getFloat("MILEAGE");
+        mileages=rs.getString("MILEAGES");
+        model_name=rs.getString("MODEL_NAME");
+        nod=rs.getInt("NOD");
+        rear_brake_dia=rs.getFloat("REAR_BRAKE_DIA");
+        steering=rs.getString("STEERING");
+        tyres_front=rs.getString("TYRES_FRONT");
+        tyres_rear=rs.getString("TYRES_REAR");
+        weight_in_kg=rs.getFloat("WEIGHT_IN_KG");
+        wheelbase_in_mm=rs.getFloat("WHEELBASE_IN_MM");
+        width_in_mm=rs.getFloat("WIDTH_IN_MM");
+        year=rs.getInt("YEAR");
+    }
+    catch(SQLException e){}
     }
     public void insertIntoDbms(jdbcconn as,String table) throws SQLException, InterruptedException{
     String a=makeInsertString(table);
@@ -78,6 +120,8 @@ public class data {
                         model_name=datchild.getTextContent();
                         model_name=model_name.trim();
                         model_name=model_name.replace("'"," ");
+                        if(model_name.isEmpty())System.out.println("empty name\n");
+                        System.out.println(model_name);
                         break;
                     case "modelyear":
                         try {
@@ -90,7 +134,7 @@ public class data {
                         break;
                     case "Number of doors":
                          try {
-                        nod=Integer.parseInt(datchild.getTextContent().substring(0,2));
+                        nod=Integer.parseInt(datchild.getTextContent());
                         }
                         catch(StringIndexOutOfBoundsException |NumberFormatException e){
                         
@@ -152,7 +196,7 @@ public class data {
                         break;
                     case "Kerb weight":
                         try{
-                        weight_in_kg=Float.parseFloat(datchild.getTextContent());
+                        weight_in_kg=Float.parseFloat(datchild.getTextContent().replace(" kg",""));
                         }
                         catch(NumberFormatException e){
                         weight_in_kg=-1;

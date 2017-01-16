@@ -32,7 +32,8 @@ import org.xml.sax.SAXException;
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, SQLException, InterruptedException {
               //
             final File folder = new File(locatn);
-            insertData(folder);
+            //insertData(folder);
+            
         }
 
 
@@ -54,7 +55,7 @@ import org.xml.sax.SAXException;
                    
                 data a =new data();
                 a.getdata(locatn+"/"+filname);    // for unix filesystem
-                System.out.println(a.makeInsertString("CAR_DATA"));
+              System.out.println(a.makeInsertString("CAR_DATA"));
                 a.insertIntoDbms(jdbc, "CAR_DATA");
                 
                 
