@@ -11,18 +11,21 @@ import java.sql.*;
  * @author vinayak
  */
 public class data2 extends data{
-        int CAR_id;
+        int CAR_ID;
 public void getCarWithCarID(int carid,String table,jdbcconn conctn)
 {
-String qry="SELECT * FROM "+table+" WHERE CAR_ID ="+carid+";";
+String qry="SELECT * FROM "+table+" WHERE CAR_ID ="+carid+"";
  try{ResultSet res;
      res=conctn.executeQuery(qry);
+     res.next();
      if (res.getInt("CAR_ID")==carid){
      getFromResultSet(res);
+     CAR_ID=carid;
+     
      }
  }
  catch(SQLException e){
- System.out.println("ERROR:"+e);
+ System.out.println("ERROR@getcharwithcarid:"+e +qry);
  }
 }
     

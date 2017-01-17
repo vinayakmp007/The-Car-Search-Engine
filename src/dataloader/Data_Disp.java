@@ -16,6 +16,7 @@ public class Data_Disp extends javax.swing.JFrame {
      */
     public Data_Disp() {
         initComponents();
+        
     }
 
     /**

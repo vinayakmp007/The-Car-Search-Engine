@@ -28,11 +28,18 @@ import org.xml.sax.SAXException;
      * @throws org.xml.sax.SAXException
      * @throws java.io.IOException
      * @throws java.sql.SQLException
+     * @throws java.lang.InterruptedException
      */
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, SQLException, InterruptedException {
               //
             final File folder = new File(locatn);
             //insertData(folder);
+            data2 a=new data2();
+            jdbcconn jdbc=new jdbcconn("vinayak","vinpassword","XE","1521");
+                    jdbc.connectToDB();
+                    jdbc.makeStatement();
+            a.getCarWithCarID(72411,"CAR_DATA", jdbc);
+            System.out.println(a.makeInsertString("CAR_DATA"));
             
         }
 

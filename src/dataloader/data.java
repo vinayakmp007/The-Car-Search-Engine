@@ -45,7 +45,7 @@ public class data {
     }
     public void getFromResultSet(ResultSet rs){
     try{
-        
+        System.out.println(rs);
         bmep=rs.getString("BMEP");
         cyclinders=rs.getString("CYCLINDERS");
         designer=rs.getString("DESIGNER");
