@@ -38,8 +38,8 @@ import org.xml.sax.SAXException;
             jdbcconn jdbc=new jdbcconn("vinayak","vinpassword","XE","1521");
                     jdbc.connectToDB();
                     jdbc.makeStatement();
-            a.getCarWithCarID(72411,"CAR_DATA", jdbc);
-            System.out.println(a.makeInsertString("CAR_DATA"));
+            a.getCarWithCarID(72444,"CAR_DATA", jdbc);
+           Data_Disp s=new Data_Disp(a);
             
         }
 

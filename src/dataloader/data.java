@@ -48,7 +48,8 @@ public class data {
         System.out.println(rs);
         bmep=rs.getString("BMEP");
         cyclinders=rs.getString("CYCLINDERS");
-        designer=rs.getString("DESIGNER");
+        designer=rs.getString("DESIGNERS");
+        
         drive_wheels=rs.getString("DRIVE_WHEELS");
         engine_coolant=rs.getString("ENGINE_COOLANT");
         engine_layout=rs.getString("ENGINE_LAYOUT");
@@ -57,13 +58,13 @@ public class data {
         engine_type=rs.getString("ENGINE_TYPE");
         front_brake_dia=rs.getFloat("FRONT_BRAKE_DIA");
         fuel_system=rs.getString("FUEL_SYSTEM");
-        fuel_tank_cap_in_ltr=rs.getFloat("FUEL_TANL_CAP");
-        gearbox=rs.getString("GEARBOX");
+        fuel_tank_cap_in_ltr=rs.getFloat("FUEL_TANK_CAP");
+        gearbox=rs.getString("GEAR_BOX");
         ground_clr_in_mm=rs.getFloat("GROUND_CLR_IN_MM");
         head=rs.getString("HEAD");
         height_in_mm=rs.getFloat("HEIGHT_IN_MM");
         image_id=rs.getInt("IMAGE_ID");
-        img=rs.getBoolean("IMAGE_Y_N");
+        img=rs.getString("IMAGE_Y_N").equals("true");
         lenght_in_mm=rs.getFloat("LENGHT_IN_MM");
         man_name=rs.getString("MAN_NAME");
         max_speed=rs.getFloat("MAX_SPEED");
@@ -80,7 +81,10 @@ public class data {
         width_in_mm=rs.getFloat("WIDTH_IN_MM");
         year=rs.getInt("YEAR");
     }
-    catch(SQLException e){}
+    catch(SQLException e){
+    System.out.println("ERROR@"+e+"\n");
+    e.printStackTrace();
+    }
     }
     public void insertIntoDbms(jdbcconn as,String table) throws SQLException, InterruptedException{
     String a=makeInsertString(table);
