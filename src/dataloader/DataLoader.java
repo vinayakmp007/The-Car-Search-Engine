@@ -40,6 +40,7 @@ import org.xml.sax.SAXException;
                     jdbc.makeStatement();
             a.getCarWithCarID(72444,"CAR_DATA", jdbc);
            Data_Disp s=new Data_Disp(a);
+          Search_Frame k= new Search_Frame ();
             
         }
 
