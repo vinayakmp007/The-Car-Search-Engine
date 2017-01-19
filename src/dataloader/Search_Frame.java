@@ -6,7 +6,8 @@
 package dataloader;
 import java.awt.Event;
 import javax.swing.*;
-/**
+/**voldermort
+ * 
  *
  * @author vinayak
  */
@@ -14,9 +15,148 @@ public class Search_Frame extends javax.swing.JFrame
 {/**
      * Creates new form Search_Frame
      */
+    int index;
+    boolean string;
     private static final String COLS[]={"MODEL NAME","MANFACTURER NAME","YEAR","CYCLINDERS","DESIGNERS","DRIVE WHEELS","ENGINE COOLANT","ENGINE LAYOUT","ENGINE MANUFACTURER","ENGINE POSITION","ENGINE TYPE","FRONT BRAKE DIAMETER","FUEL SYSTEM","FUEL TANK CAPACITY","GEAR BOX","GROUND CLEARANCE","HEIGHT","LENGHT","MAXIMUM SPEED","MILEAGE","NUMBER OF DOORS","REAR BRAKE DIAMETER","STEERING","TYRES FRONT","TYRES REAR","WEIGHT IN KG","WHEELBASE","WIDTH"};
-     private static final String STR[]={"Contains","Does not contain","Starts with","Ends with","is","is not"};
+     private static final String STR[]={"contains","does not contain","starts with","does not start with","ends with","does not end with","is","is not"};
    private static final String NBR[]={"between","not between","greater than","less than","equal to"};
+   public String getQuery(String tab){
+   String st="SELECT CAR_ID FROM "+tab+" WHERE ";
+   String col="",cond="";
+   switch((String)jComboBox1.getSelectedItem())
+   {
+       case "MODEL NAME":
+                   col="MODEL_NAME";
+                   break;
+        case "MANUFACTURER NAME":
+                   col="MAN_NAME";
+                   break;
+         case "YEAR":
+                   col="YEAR";
+                   break;
+        case "CYCLINDERS":
+                   col="CYCLINDERS";
+                   break;
+        case "DESIGNERS":
+                   col="DESIGNERS";
+                   break;
+        case "DRIVE WHEELS":
+                   col="DRIVE_WHEELS";
+                   break;
+         case "ENGINE COOLANT":
+                   col="ENGINE_COOLANT";
+                   break;
+        case "ENGINE LAYOUT":
+                   col="ENGINE_LAYOUT";
+                   break;
+         case "ENGINE MANUFACTURER":
+                   col="ENGINE_MAN";
+                   break;
+        case "ENGINE POSITION":
+                   col="ENGINE_POS";
+                   break;
+        case "ENGINE TYPE":
+                   col="ENGINE_TYPE";
+                   break;
+        case "FRONT BRAKE DIAMETER":
+                   col="FRONT_BRAKE_DIA";
+                   break;
+         case "FUEL SYSTEM":
+                   col="FUEL_SYSTEM";
+                   break;
+        case "FUEL TANK CAPACITY":
+                   col="FUEL_TANK_CAP";
+                   break;
+         case "GEAR BOX":
+                   col="GEARBOX";
+                   break;
+        case "GROUND CLEARANCE":
+                   col="GROUND_CLR_IN_MM";
+                   break;
+        case "HEIGHT":
+                   col="HEIGHT_IN_MM";
+                   break;
+        case "LENGHT":
+                   col="LENGHT_IN_MM";
+                   break;
+         case "MAXIMUM SPEED":
+                   col="MAX_SPEED";
+                   break;
+        case "MILEAGE":
+                   col="MILEAGE";
+                   break;
+         case "NUMBER OF DOORS":
+                   col="NOD";
+                   break;
+        case "REAR BRAKE DIAMETER":
+                   col="REAR_BRAKE_DIA";
+                   break;
+        case "STEERING":
+                   col="STEERING";
+                   break;
+        case "TYRES FRONT":
+                   col="TYRES_FRONT";
+                   break;
+         case "TYRES REAR":
+                   col="TYRES_REAR";
+                   break;
+         case "WEIGHT":
+                   col="WEIGHT_IN_KG";
+                   break;
+          case "WHEELBASE_IN_MM":
+                   col="WHEELBASE_IN_MM";
+                   break;
+          case "WIDTH":
+                   col="WIDTH_IN_MM";
+                   break;
+   
+   }
+   
+   switch((String)jComboBox2.getSelectedItem())
+   {
+       case "contains":
+           cond=" LIKE '%"+jTextField1.getText()+"%'";
+           break;
+       case "does not contain":
+           cond=" NOT LIKE '%"+jTextField1.getText()+"%'";
+           break;
+       case "starts with":
+           cond=" LIKE '"+jTextField1.getText()+"%'";
+           break;
+       case "does not start with":
+           cond=" NOT LIKE '"+jTextField1.getText()+"%'";
+           break;
+       case "ends with":
+           cond=" LIKE '%"+jTextField1.getText()+"'";
+           break;
+        case "does not end with":
+           cond=" NOT LIKE '%"+jTextField1.getText()+"'";
+           break;
+        case "is":
+           cond=" LIKE '"+jTextField1.getText()+"'";
+           break;
+        case "is not":
+           cond=" NOT LIKE '"+jTextField1.getText()+"'";
+           break;
+        case "between":
+            cond=" BETWEEN "+jTextField1.getText()+" AND "+ jTextField2.getText();
+            break;
+        case "not between":
+            cond=" NOT BETWEEN "+jTextField1.getText()+" AND "+ jTextField2.getText();
+            break;
+        case "greater than":
+           cond=" > "+jTextField1.getText()+"";
+           break;
+        case "less than":
+           cond=" < "+jTextField1.getText()+"";
+           break;
+        case "equal to":
+           cond=" < "+jTextField1.getText()+"";
+           break;
+   }
+   st=st+col+cond;
+       return st;
+   }
      public Search_Frame() {
         
         initComponents();
@@ -80,10 +220,16 @@ public class Search_Frame extends javax.swing.JFrame
         jTextField1.setText("jTextField1");
 
         jTextField2.setText("jTextField2");
+        jTextField2.setPreferredSize(new java.awt.Dimension(100, 26));
 
         jLabel1.setText("jLabel1");
 
         jButton1.setText("X");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,14 +243,15 @@ public class Search_Frame extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 129, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -127,7 +274,7 @@ public class Search_Frame extends javax.swing.JFrame
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO afdd your handling code here:
         String t=(String)jComboBox1.getSelectedItem();
-        System.out.println(t);
+       // System.out.println(t);
         jComboBox2.setEnabled(false);
         jComboBox2.removeAllItems();
     jTextField1.setEnabled(false);
@@ -146,6 +293,7 @@ public class Search_Frame extends javax.swing.JFrame
             case "YEAR":
             case "WEIGHT IN KG":
             case "WHEELBASE":
+                string=false;
                 for(int i=0;i<NBR.length;i++)
     {
     jComboBox2.addItem(NBR[i]);
@@ -158,6 +306,7 @@ public class Search_Frame extends javax.swing.JFrame
             case "":
                 break;
             default:
+                string=true;
                 for(int i=0;i<STR.length;i++)
     {
     jComboBox2.addItem(STR[i]);
@@ -173,7 +322,32 @@ public class Search_Frame extends javax.swing.JFrame
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
+        String t=(String)jComboBox2.getSelectedItem();
+        jTextField1.setEnabled(false);
+    jTextField2.setEnabled(false);
+    //System.out.println(t);
+    try{switch(t){
+        case "between":
+        case "not between":
+        jTextField2.setEnabled(true);
+        jTextField1.setEnabled(true);
+            break;
+        default:
+            jTextField1.setEnabled(true);
+         
+    
+    }}
+    catch(NullPointerException e){
+    
+    }
+    jTextField1.setText("");
+    jTextField2.setText("");
     }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //System.out.println(getQuery("CAR_DATA"));
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     /**
      * @param args the command line arguments
