@@ -15,11 +15,11 @@ import java.util.*;
 
 
 public class filterBox extends javax.swing.JFrame implements ActionListener{
-JPanel myJpanel;
+JPanel myJpanel,buttonpanel;
 JScrollPane pane;
 int index;
 ArrayList <Search_Panel>items;
-JButton bttn;
+JButton bttn,subbttn;
 public String queryEngine(String table)
 {
     String qry="SELECT * FROM "+table +" WHERE CAR_ID IN (";
@@ -72,7 +72,7 @@ System.out.println(ee);
   
  items.add(tem);
  myJpanel.removeAll();
-  myJpanel.add(bttn);
+ myJpanel.add(buttonpanel);
  for(int i=0;i<index;i++)
  {
  items.get(i).index=i;
@@ -88,7 +88,7 @@ System.out.println(ee);
  index--;
  myJpanel.removeAll();
  myJpanel.validate();
- myJpanel.add(bttn);
+ myJpanel.add(buttonpanel);
  for(int i=0;i<index;i++)
  {
  items.get(i).index=i;
@@ -105,8 +105,14 @@ System.out.println(ee);
         setAllValuesc();
         bttn=new JButton("ADD");
         bttn.addActionListener(this);
+        subbttn=new JButton("SUBMIT");
+        subbttn.addActionListener(this);
+        buttonpanel= new JPanel();
+        buttonpanel.add(bttn);
+        buttonpanel.add(subbttn);
+        
         myJpanel = new JPanel();
-        myJpanel.add(bttn);
+        myJpanel.add(buttonpanel);
         
         JScrollPane scrollPane = new JScrollPane(myJpanel);
         myJpanel.setLayout(new GridLayout(50,1));
