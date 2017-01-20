@@ -39,8 +39,11 @@ import org.xml.sax.SAXException;
                     jdbc.connectToDB();
                     jdbc.makeStatement();
             a.getCarWithCarID(72444,"CAR_DATA", jdbc);
-           Data_Disp s=new Data_Disp(a);
-          Search_Frame k= new Search_Frame ();
+           //Data_Disp s=new Data_Disp(a);
+         // Search_Frame k= new Search_Frame ();
+        // Search_Panel ex=new Search_Panel();
+        filterBox ex=new filterBox();
+         
             
         }
 
