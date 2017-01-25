@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
            //Data_Disp s=new Data_Disp(a);
          // Search_Frame k= new Search_Frame ();
         // Search_Panel ex=new Search_Panel();
-        filterBox ex=new filterBox();
+        filterBox ex=new filterBox(jdbc);
          
             
         }

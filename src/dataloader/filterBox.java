@@ -15,9 +15,10 @@ import java.util.*;
 
 
 public class filterBox extends javax.swing.JFrame implements ActionListener{
-JPanel myJpanel,buttonpanel;
+JPanel myJpanel,buttonpanel,contentPane;
 JScrollPane pane;
 int index;
+jdbcconn sqlcon;
 ArrayList <Search_Panel>items;
 JButton bttn,subbttn;
 public String queryEngine(String table)
@@ -46,10 +47,17 @@ public void actionPerformed(ActionEvent e)
     System.out.println(queryEngine("CAR_DATA"));
 try{String eve=e.getActionCommand();
 if(eve.equals("ADD"))addEle();
+else if(eve.equals("SUBMIT")){
+this.setVisible(false);
+TablePane tem=new TablePane(queryEngine("CAR_DATA"),this,sqlcon);    
+
+}
 else {
 //System.out.println(e.getSource());
 deleteEle(Integer.parseInt(eve));
-
+this.setVisible(false);
+this.setVisible(true);
+this.revalidate();
 }
 
 }
@@ -99,9 +107,9 @@ System.out.println(ee);
  myJpanel.revalidate();
  }
  
-    public filterBox() {
+    public filterBox(jdbcconn a) {
         initComponents();
-        
+        sqlcon=a;
         setAllValuesc();
         bttn=new JButton("ADD");
         bttn.addActionListener(this);
@@ -119,17 +127,19 @@ System.out.println(ee);
        
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(50, 30, 700, 300);
+        scrollPane.setBounds(0, 0, 700,600);
          //panel.add(new Search_Panel(0));
         //panel.add(new Search_Panel(1));
         
-        JPanel contentPane = new JPanel(null);
-        contentPane.setPreferredSize(new Dimension(500, 400));
+        contentPane = new JPanel(null);
+        contentPane.setPreferredSize(new Dimension(700,600));
         contentPane.add(scrollPane);
         
         this.setContentPane(contentPane);
         this.pack();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setBounds(0, 0, 700,600);
+        this.setResizable(false);
         this.setVisible(true);
     }
 
@@ -166,37 +176,7 @@ System.out.println(ee);
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(filterBox.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(filterBox.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(filterBox.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(filterBox.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new filterBox().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane3;

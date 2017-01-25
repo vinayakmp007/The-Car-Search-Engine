@@ -5,6 +5,8 @@
  */
 package dataloader;
 
+import javax.swing.WindowConstants;
+import javax.swing.*;
 /**
  *
  * @author vinayak
@@ -95,6 +97,7 @@ public Data_Disp(data2 ca) {
         this.car=ca;
         setAllLabels();
         setVisible(true);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //setLayout(FLOW);
         
     }
