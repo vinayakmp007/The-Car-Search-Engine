@@ -20,8 +20,9 @@ JScrollPane pane;
 int index;
 jdbcconn sqlcon;
 ArrayList <Search_Panel>items;
-JButton bttn,subbttn,col;
+JButton bttn,subbttn,col,imb;
 columnselect coll;
+imagesearch imgg;
 public String queryEngine(String table)
 {
     String q=coll.getString();
@@ -50,6 +51,7 @@ public void actionPerformed(ActionEvent e)
 try{String eve=e.getActionCommand();
 if(eve.equals("ADD"))addEle();
 else if(eve.equals("SELECT COLUMNS"))coll.setVisible(true);
+else if(eve.equals("SEARCH BY IMAGE"))imgg=new imagesearch(sqlcon);
 else if(eve.equals("SUBMIT")){
 this.setVisible(false);
 TablePane tem=new TablePane(queryEngine("CAR_DATA"),this,sqlcon);    
@@ -119,13 +121,15 @@ System.out.println(ee);
         col.addActionListener(this);
         bttn=new JButton("ADD");
         bttn.addActionListener(this);
+        imb=new JButton("SEARCH BY IMAGE");
+        imb.addActionListener(this);
         subbttn=new JButton("SUBMIT");
         subbttn.addActionListener(this);
         buttonpanel= new JPanel();
         buttonpanel.add(bttn);
         buttonpanel.add(col);
-        buttonpanel.add(subbttn);
-        
+              buttonpanel.add(imb);
+                buttonpanel.add(subbttn);
         myJpanel = new JPanel();
         myJpanel.add(buttonpanel);
         
@@ -144,7 +148,7 @@ System.out.println(ee);
         
         this.setContentPane(contentPane);
         this.pack();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(0, 0, 700,600);
         this.setResizable(false);
         this.setVisible(true);

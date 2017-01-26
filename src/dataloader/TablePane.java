@@ -85,8 +85,9 @@ public void loadTable()
         k.add(this);
         jScrollPane2.setBounds(0,10,700,500);
         k.setBounds(0,0, 700,500);
+        k.setExtendedState( k.getExtendedState() | JFrame.MAXIMIZED_VERT | Frame.MAXIMIZED_HORIZ);
         
-        k.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        k.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         k.setVisible(true);
     }
 

@@ -39,12 +39,12 @@ import org.xml.sax.SAXException;
                     jdbc.connectToDB();
                     jdbc.makeStatement();
             //a.getCarWithCarID(72444,"CAR_DATA", jdbc);
-               logo bb=new logo(jdbc);
+           //    logo bb=new logo(jdbc);
            //Data_Disp s=new Data_Disp(a);
          // Search_Frame k= new Search_Frame ();
         // Search_Panel ex=new Search_Panel();
-        //filterBox ex=new filterBox(jdbc);
-         
+        filterBox ex=new filterBox(jdbc);
+         //imagesearch ee=new imagesearch(jdbc);
             
         }
 
