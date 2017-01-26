@@ -20,10 +20,12 @@ JScrollPane pane;
 int index;
 jdbcconn sqlcon;
 ArrayList <Search_Panel>items;
-JButton bttn,subbttn;
+JButton bttn,subbttn,col;
+columnselect coll;
 public String queryEngine(String table)
 {
-    String qry="SELECT * FROM "+table +" WHERE CAR_ID IN (";
+    String q=coll.getString();
+    String qry="SELECT "+q+" FROM "+table +" WHERE CAR_ID IN (";
     
     for(int i=0;i<index;i++)
  {
@@ -47,6 +49,7 @@ public void actionPerformed(ActionEvent e)
     System.out.println(queryEngine("CAR_DATA"));
 try{String eve=e.getActionCommand();
 if(eve.equals("ADD"))addEle();
+else if(eve.equals("SELECT COLUMNS"))coll.setVisible(true);
 else if(eve.equals("SUBMIT")){
 this.setVisible(false);
 TablePane tem=new TablePane(queryEngine("CAR_DATA"),this,sqlcon);    
@@ -110,13 +113,17 @@ System.out.println(ee);
     public filterBox(jdbcconn a) {
         initComponents();
         sqlcon=a;
+        coll =new columnselect();
         setAllValuesc();
+        col=new JButton("SELECT COLUMNS");
+        col.addActionListener(this);
         bttn=new JButton("ADD");
         bttn.addActionListener(this);
         subbttn=new JButton("SUBMIT");
         subbttn.addActionListener(this);
         buttonpanel= new JPanel();
         buttonpanel.add(bttn);
+        buttonpanel.add(col);
         buttonpanel.add(subbttn);
         
         myJpanel = new JPanel();

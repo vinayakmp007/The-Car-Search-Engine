@@ -16,6 +16,10 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.io.*;  
 /**
  *
  * @author vinayak
@@ -30,6 +34,49 @@ public class data {
     int year,nod;
     float wheelbase_in_mm,lenght_in_mm,width_in_mm,height_in_mm,ground_clr_in_mm,fuel_tank_cap_in_ltr,weight_in_kg,max_speed;
     float front_brake_dia,rear_brake_dia,mileage;
+    
+    int getCarid(jdbcconn a){
+    String qry="SELECT * FROM CAR_DATA WHERE MAN_NAME='"+man_name+"' AND MODEL_NAME='"+model_name+"' AND YEAR="+year;
+ //System.out.println(qry);
+    try{ResultSet res;
+     res=a.executeQuery(qry);
+     res.next();
+     int carid =res.getInt("CAR_ID");
+     res.close();
+     // System.out.println("\n"+carid+"kjk");
+    return carid;
+          
+    }
+ catch(Exception e){
+ System.out.println("carid:"+e);
+ 
+ }
+    return -1; }
+    public void insertImage(jdbcconn a){
+    
+    if(img==true){
+        if(getCarid(a)!=-1){
+            try {
+                PreparedStatement ps=a.prepareStatement("insert into CAR_IMAGE(CAR_ID,IMAGE) values(?,?)");
+                ps.setString(1,Integer.toString(getCarid(a)));
+                
+                FileInputStream fin=new FileInputStream(image);
+                ps.setBinaryStream(2,fin,fin.available());  
+                int i=ps.executeUpdate();
+                ps.close();
+            } catch (Exception ex) {
+                System.out.println("image error"+ex);
+            }
+        
+        
+    }}
+    }
+    
+    
+    
+    
+    
+    
     public String makeInsertString(String table){
         image_id=0;
 
@@ -80,22 +127,24 @@ public class data {
         wheelbase_in_mm=rs.getFloat("WHEELBASE_IN_MM");
         width_in_mm=rs.getFloat("WIDTH_IN_MM");
         year=rs.getInt("YEAR");
+        rs.close();
     }
     catch(SQLException e){
     System.out.println("ERROR@"+e+"\n");
     e.printStackTrace();
     }
+    
     }
     public void insertIntoDbms(jdbcconn as,String table) throws SQLException, InterruptedException{
     String a=makeInsertString(table);
     as.executeUpdate(a);
-    
+    insertImage(as);
     }
     public void getdata(String fil) throws ParserConfigurationException, SAXException, IOException
     {
         img=false;
         int a =fil.length();
-        image=(fil.substring(0,a-4).concat(".jpg"));
+        image=(fil.replace(".xml",".jpg"));
         //System.out.println(image);
         File f =new File(fil);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -107,7 +156,7 @@ public class data {
         
             File temp=new File(image);
             img=temp.isFile();
-            
+            System.out.println(img);
              NodeList nList = docfile.getElementsByTagName("dat");
              for(int i=0;i<nList.getLength();i++)
              {

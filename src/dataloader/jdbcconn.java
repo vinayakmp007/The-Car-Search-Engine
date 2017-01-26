@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.*; 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author vinayak
@@ -18,6 +21,7 @@ public class jdbcconn {
 Connection conn;
 Statement state;
 String usern,passwd,sid,port;
+//Prepared 
 public jdbcconn(){
 
 conn=null;
@@ -65,6 +69,7 @@ public ResultSet executeQuery(String a) throws SQLException
 {
 return state.executeQuery(a);
 }
+
     public boolean connectToDB()
     {
         try{
@@ -87,4 +92,12 @@ return state.executeQuery(a);
     return true;
     }
     
+    public PreparedStatement prepareStatement(String a) throws SQLException{
+    try {
+        return conn.prepareStatement(a);
+    } catch (SQLException ex) {
+        Logger.getLogger(jdbcconn.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return conn.prepareStatement(a);
+    }
 }

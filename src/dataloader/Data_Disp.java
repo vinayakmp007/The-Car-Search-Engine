@@ -7,12 +7,17 @@ package dataloader;
 
 import javax.swing.WindowConstants;
 import javax.swing.*;
+import java.sql.*;  
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author vinayak
  */
-public class Data_Disp extends javax.swing.JFrame {
+public final class Data_Disp extends javax.swing.JFrame {
 data2 car;
+
     /**
      * Creates new form Data_Disp
      */
@@ -92,13 +97,54 @@ data2 car;
     public Data_Disp() {
         initComponents();
     }
+    public String image() throws InterruptedException, SQLException, FileNotFoundException, IOException{
+    String file = null;
+    try{
+        jdbcconn jdbc=new jdbcconn("vinayak","vinpassword","XE","1521");
+                    jdbc.connectToDB();
+                    jdbc.makeStatement();
+                   // PreparedStatement ps=jdbc.prepareStatement("select * from imgtable");  
+ResultSet rs=jdbc.executeQuery("select IMAGE from CAR_IMAGE WHERE CAR_ID="+car.CAR_ID);  
+if(rs.next()){//now on 1st row  
+              
+Blob b=rs.getBlob(1);//2 means 2nd column data  
+byte barr[]=b.getBytes(1,(int)b.length());//1 means first image  
+file="/home/vinayak/mini project data";
+file=file.concat("/"+car.CAR_ID+".jpg");
+FileOutputStream fout=new FileOutputStream(file);
+//imag=new image(file);
+fout.write(barr);  
+jdbc.close();
+fout.close();
+return file;
+}
+    }
+    catch(Exception ex){
+    System.out.println("dsfsd"+ex);
+    
+    }
+    return file;
+    }                    
+    
 public Data_Disp(data2 ca) {
         initComponents();
         this.car=ca;
         setAllLabels();
+        String hello = null;
         setVisible(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    try {
         //setLayout(FLOW);
+       hello= image();
+    } catch (InterruptedException ex) {
+        Logger.getLogger(Data_Disp.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+        Logger.getLogger(Data_Disp.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IOException ex) {
+        Logger.getLogger(Data_Disp.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    ImageIcon icon = new ImageIcon(hello);
+       jLabel61.setIcon(icon);
         
     }
     /**
@@ -170,6 +216,7 @@ public Data_Disp(data2 ca) {
         jLabel58 = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setType(java.awt.Window.Type.UTILITY);
@@ -294,6 +341,8 @@ public Data_Disp(data2 ca) {
 
         jLabel60.setText("jLabel60");
 
+        jLabel61.setText(" ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -367,6 +416,10 @@ public Data_Disp(data2 ca) {
                     .addComponent(jLabel59)
                     .addComponent(jLabel60))
                 .addGap(29, 29, 29))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -461,7 +514,8 @@ public Data_Disp(data2 ca) {
                     .addComponent(jLabel30)
                     .addComponent(jLabel45)
                     .addComponent(jLabel60))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel61, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
         );
 
         pack();
@@ -560,6 +614,7 @@ public Data_Disp(data2 ca) {
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

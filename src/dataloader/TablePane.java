@@ -44,7 +44,7 @@ public void loadTable()
         DefaultTableModel aModel = (DefaultTableModel) jTable1.getModel();
         java.sql.ResultSetMetaData rsmd = rslt.getMetaData();
         int k=rsmd.getColumnCount();
-        String cols[]=new String[34];
+        String cols[]=new String[k];
         for(int i=0;i<k;i++)
         {
         cols[i]=rsmd.getColumnName(i+1);
@@ -209,7 +209,7 @@ public void loadTable()
         // TODO add your handling code here:
         int[] selection = jTable1.getSelectedRows();
        try{ 
-        selection[0] = jTable1.convertRowIndexToModel(selection[0]);
+       // selection[0] = jTable1.convertRowIndexToModel(selection[0]);
         
         Object carid=jTable1.getValueAt(selection[0],0);
         System.out.println(carid);
