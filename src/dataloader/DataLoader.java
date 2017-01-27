@@ -33,17 +33,21 @@ import org.xml.sax.SAXException;
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, SQLException, InterruptedException {
               //
             final File folder = new File(locatn);
+            Loader a=new Loader();
          // insertData(folder);
            // data2 a=new data2();
             jdbcconn jdbc=new jdbcconn("vinayak","vinpassword","XE","1521");
                     jdbc.connectToDB();
                     jdbc.makeStatement();
             //a.getCarWithCarID(72444,"CAR_DATA", jdbc);
-           //    logo bb=new logo(jdbc);
+             logo bb=new logo(jdbc,a);
            //Data_Disp s=new Data_Disp(a);
          // Search_Frame k= new Search_Frame ();
         // Search_Panel ex=new Search_Panel();
-        filterBox ex=new filterBox(jdbc);
+        
+      
+      /// a.setVisible(true);
+       filterBox ex=new filterBox(jdbc,a);
          //imagesearch ee=new imagesearch(jdbc);
             
         }

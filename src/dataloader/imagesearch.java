@@ -21,7 +21,8 @@ import java.awt.event.ActionListener;
  */
 public class imagesearch extends javax.swing.JFrame implements ActionListener{
 jdbcconn conn;
- /**
+Loader lode;
+/**
      * Creates new form imagesearch
      */
 public void actionPerformed(ActionEvent e)
@@ -35,9 +36,17 @@ data2 a=new data2();
 public void load() throws SQLException, FileNotFoundException, IOException{
 int car_id;
 jPanel1.setLayout(new GridLayout(100,3));
+ResultSet count=conn.executeQuery("select count(*) from CAR_IMAGE ");
+count.next();
+int i=0,k;
+k=count.getInt(1);
+count.close();
 ResultSet rs=conn.executeQuery("select IMAGE,CAR_ID from CAR_IMAGE ");  
+
+
 while(rs.next()){//now on 1st row  
-     System.out.println("dsf");
+     System.out.println(i+" "+k);
+     lode.setVAl(100);
 JButton btn=new JButton();           
 Blob b=rs.getBlob(1);//2 means 2nd column data 
 car_id=rs.getInt(2);
@@ -55,15 +64,22 @@ ImageIcon icon = new ImageIcon(file);
        jPanel1.add(btn);
 
 //return file;
+i++;
 }
+rs.close();
 }
-    public imagesearch(jdbcconn con) {
+    public imagesearch(jdbcconn con,Loader lod) {
+           
         initComponents();
         conn=con;
         try{
-            
+        lode=lod;
+        //lod.setVisible(true);
+        //Thread.sleep(10000);
         load();
         this.setVisible(true);
+        lode.setVisible(false);
+        lode.dispose();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setExtendedState( getExtendedState() | JFrame.MAXIMIZED_VERT | Frame.MAXIMIZED_HORIZ);
         }

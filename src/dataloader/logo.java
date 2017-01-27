@@ -15,13 +15,13 @@ import java.util.logging.Logger;
  * @author vinayak
  */
 public class logo extends javax.swing.JFrame {
-
+Loader lod;
     /**
      * Creates new form logo
      */
-    public logo(jdbcconn jdbc) throws InterruptedException {
+    public logo(jdbcconn jdbc,Loader l) throws InterruptedException {
         initComponents();
-        
+        lod=l;
         ImageIcon icon = new ImageIcon("/home/vinayak/mini"+"/3.jpg");
         
         jLabel1.setIcon(icon);
@@ -29,7 +29,7 @@ public class logo extends javax.swing.JFrame {
         Thread.sleep(7000);
        
        this.setVisible(false);
-       filterBox ex=new filterBox(jdbc);
+       filterBox ex=new filterBox(jdbc,lod);
        this.dispose();
     }
 

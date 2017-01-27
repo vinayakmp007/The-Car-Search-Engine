@@ -23,6 +23,7 @@ ArrayList <Search_Panel>items;
 JButton bttn,subbttn,col,imb;
 columnselect coll;
 imagesearch imgg;
+Loader lod;
 public String queryEngine(String table)
 {
     String q=coll.getString();
@@ -51,7 +52,7 @@ public void actionPerformed(ActionEvent e)
 try{String eve=e.getActionCommand();
 if(eve.equals("ADD"))addEle();
 else if(eve.equals("SELECT COLUMNS"))coll.setVisible(true);
-else if(eve.equals("SEARCH BY IMAGE"))imgg=new imagesearch(sqlcon);
+else if(eve.equals("SEARCH BY IMAGE"))imgg=new imagesearch(sqlcon,lod);
 else if(eve.equals("SUBMIT")){
 this.setVisible(false);
 TablePane tem=new TablePane(queryEngine("CAR_DATA"),this,sqlcon);    
@@ -112,8 +113,9 @@ System.out.println(ee);
  myJpanel.revalidate();
  }
  
-    public filterBox(jdbcconn a) {
+    public filterBox(jdbcconn a,Loader lode) {
         initComponents();
+        lod=lode;
         sqlcon=a;
         coll =new columnselect();
         setAllValuesc();
@@ -166,6 +168,7 @@ System.out.println(ee);
         jScrollPane3 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 62, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
