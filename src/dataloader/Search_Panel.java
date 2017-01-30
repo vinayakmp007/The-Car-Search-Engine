@@ -5,6 +5,8 @@
  */
 package dataloader;
 
+import java.awt.Color;
+
 /**
  *
  * @author vinayak
@@ -187,6 +189,7 @@ public javax.swing.JButton bttn;
 
     public Search_Panel(int i) {
         initComponents();
+        this.setBackground(Color.black);
         setAllValuesc();
         bttn=jButton1;
         setVisible(true);
@@ -214,6 +217,8 @@ public javax.swing.JButton bttn;
         jButton1 = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
 
+        jComboBox1.setBackground(new java.awt.Color(20, 18, 7));
+        jComboBox1.setForeground(new java.awt.Color(238, 239, 26));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,6 +226,8 @@ public javax.swing.JButton bttn;
             }
         });
 
+        jComboBox2.setBackground(new java.awt.Color(15, 13, 12));
+        jComboBox2.setForeground(new java.awt.Color(240, 230, 23));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,15 +235,25 @@ public javax.swing.JButton bttn;
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(14, 14, 14));
+        jLabel1.setForeground(new java.awt.Color(240, 218, 33));
         jLabel1.setText("jLabel1");
 
+        jTextField1.setBackground(new java.awt.Color(10, 9, 9));
+        jTextField1.setForeground(new java.awt.Color(236, 236, 16));
         jTextField1.setText("jTextField1");
 
+        jTextField2.setBackground(new java.awt.Color(18, 14, 9));
+        jTextField2.setForeground(new java.awt.Color(247, 223, 27));
         jTextField2.setText("jTextField2");
         jTextField2.setMinimumSize(new java.awt.Dimension(78, 26));
 
+        jLabel2.setBackground(new java.awt.Color(229, 11, 133));
+        jLabel2.setForeground(new java.awt.Color(46, 254, 10));
         jLabel2.setText("0");
 
+        jButton1.setBackground(new java.awt.Color(21, 21, 1));
+        jButton1.setForeground(new java.awt.Color(228, 217, 31));
         jButton1.setText("X");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

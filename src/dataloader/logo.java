@@ -22,7 +22,7 @@ Loader lod;
     public logo(jdbcconn jdbc,Loader l) throws InterruptedException {
         initComponents();
         lod=l;
-        ImageIcon icon = new ImageIcon("/home/vinayak/mini"+"/3.jpg");
+        ImageIcon icon = new ImageIcon(constants.IMAGE_FOLDER+"/3.jpg");
         
         jLabel1.setIcon(icon);
         this.setVisible(true);

@@ -47,12 +47,14 @@ ResultSet rs=conn.executeQuery("select IMAGE,CAR_ID from CAR_IMAGE ");
 while(rs.next()){//now on 1st row  
      System.out.println(i+" "+k);
      lode.setVAl(100);
-JButton btn=new JButton();           
+JButton btn=new JButton();   
+//btn.setBackground(Color.white);
 Blob b=rs.getBlob(1);//2 means 2nd column data 
 car_id=rs.getInt(2);
 byte barr[]=b.getBytes(1,(int)b.length());//1 means first image  
-String file="/home/vinayak/mini project data";
-file=file.concat("/"+car_id+".jpg");
+String file=constants.LOCATION;
+file=file.concat("/"+car_id+".jpg");// for unix;
+//file=file.concat("\\"+car_id+".jpg");                //for windows
 FileOutputStream fout=new FileOutputStream(file);
 //imag=new image(file);
 fout.write(barr);  
@@ -102,7 +104,9 @@ rs.close();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setBackground(new java.awt.Color(3, 3, 3));
+        jPanel1.setForeground(new java.awt.Color(222, 205, 19));
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

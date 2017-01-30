@@ -14,7 +14,7 @@ import java.util.*;
  */
 
 
-public class filterBox extends javax.swing.JFrame implements ActionListener{
+public final class filterBox extends javax.swing.JFrame implements ActionListener{
 JPanel myJpanel,buttonpanel,contentPane;
 JScrollPane pane;
 int index;
@@ -115,21 +115,31 @@ System.out.println(ee);
  
     public filterBox(jdbcconn a,Loader lode) {
         initComponents();
+        
         lod=lode;
         sqlcon=a;
         coll =new columnselect();
         setAllValuesc();
         col=new JButton("SELECT COLUMNS");
+        col.setBackground(Color.black);
+        col.setForeground(Color.yellow);
         col.addActionListener(this);
         bttn=new JButton("ADD");
+        bttn.setBackground(Color.black);
+        bttn.setForeground(Color.yellow);
         bttn.addActionListener(this);
         imb=new JButton("SEARCH BY IMAGE");
+        imb.setBackground(Color.black);
+        imb.setForeground(Color.yellow);
         imb.addActionListener(this);
         subbttn=new JButton("SUBMIT");
+        subbttn.setBackground(Color.black);
+        subbttn.setForeground(Color.yellow);
         subbttn.addActionListener(this);
         buttonpanel= new JPanel();
         buttonpanel.add(bttn);
         buttonpanel.add(col);
+        buttonpanel.setBackground(Color.black);
               buttonpanel.add(imb);
                 buttonpanel.add(subbttn);
         myJpanel = new JPanel();
@@ -137,7 +147,7 @@ System.out.println(ee);
         
         JScrollPane scrollPane = new JScrollPane(myJpanel);
         myJpanel.setLayout(new GridLayout(50,1));
-       
+       myJpanel.setBackground(Color.black);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBounds(0, 0, 700,600);

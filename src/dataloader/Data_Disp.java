@@ -100,7 +100,7 @@ data2 car;
     public String image() throws InterruptedException, SQLException, FileNotFoundException, IOException{
     String file = null;
     try{
-        jdbcconn jdbc=new jdbcconn("vinayak","vinpassword","XE","1521");
+        jdbcconn jdbc=new jdbcconn(constants.USERNAME,constants.PASSWORD,constants.SID,constants.PORT);
                     jdbc.connectToDB();
                     jdbc.makeStatement();
                    // PreparedStatement ps=jdbc.prepareStatement("select * from imgtable");  
@@ -109,8 +109,9 @@ if(rs.next()){//now on 1st row
               
 Blob b=rs.getBlob(1);//2 means 2nd column data  
 byte barr[]=b.getBytes(1,(int)b.length());//1 means first image  
-file="/home/vinayak/mini project data";
-file=file.concat("/"+car.CAR_ID+".jpg");
+file=constants.LOCATION;
+file=file.concat("/"+car.CAR_ID+".jpg");//for unix
+file=file.concat("\\"+car.CAR_ID+".jpg");//for windows
 FileOutputStream fout=new FileOutputStream(file);
 //imag=new image(file);
 fout.write(barr);  
